@@ -1,0 +1,13 @@
+{% spaceless %}
+<ul id="mpd-playlist-list">
+{% if playlists is not empty %}
+    {% for serverName,items in playlists %}
+        {% for item in items %}
+        {% include 'CogimixMPDBundle:Playlist:item.html.twig' %}
+        {% endfor %}
+    {% endfor %}
+{% else %}
+<li>No Grooveshark playlist</li>
+{% endif %}
+</ul>
+{% endspaceless %}

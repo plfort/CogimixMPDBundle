@@ -1,0 +1,40 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+       <service id="cogimix.mpd.plugin_provider" class="Cogipix\CogimixMPDBundle\Services\MPDPluginProvider">
+            <argument type="service" id="doctrine.orm.entity_manager" />
+            <argument type="service" id="security.context" />
+            <argument type="service" id="cogimix.mpd_plugin_factory" />
+            <tag name="cogimix.plugin_provider"/>
+        </service>
+         <service id="cogimix.mpd_plugin_factory" class="Cogipix\CogimixMPDBundle\Services\MPDPluginFactory">
+              <argument type="service" id="service_container"/>
+         </service>
+         
+         <service id="cogimix_mpd.filename_hasher" class="Cogipix\CogimixMPDBundle\Services\FilenameHasher">
+             
+         </service>
+         
+         <service id="cogimix_mpd.result_builder" class="Cogipix\CogimixMPDBundle\Services\ResultBuilder">
+             <argument type="service" id="cogimix_mpd.filename_hasher" />
+         </service>
+         
+         	<service id="cogimix_mpd.playlist_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Playlist\PlaylistRenderer">
+                <argument type="service" id="doctrine.orm.entity_manager" />
+                <tag name="cogimix.playlist_renderer"/>
+                <tag name="securitycontext_aware"/>
+           </service>
+           
+		   <service id="cogimix_mpd.menu_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Menu\MenuRenderer">
+                <tag name="cogimix.menu_renderer"/>
+           </service>
+           <service id="cogimix_mpd.modal_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Modal\ModalRenderer">
+                <tag name="cogimix.modal_renderer"/>
+           </service>
+    </services>
+    
+</container>

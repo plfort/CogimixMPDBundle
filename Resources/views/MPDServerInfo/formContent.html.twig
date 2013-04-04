@@ -1,0 +1,25 @@
+<form action="{{ actionUrl }}" method="POST">
+<div class="row">
+<div class="span3">
+Alias : <b>{{ mpdServerInfo.alias }}</b>
+</div>
+<div class="span3">
+{{ form_row(form.name) }}
+</div>
+<div class="span3">
+{{ form_row(form.host) }}
+</div>
+<div class="span3">
+{{ form_row(form.port) }}
+</div>
+<div class="span3">
+{{ form_row(form.streamUrl) }}
+</div>
+<div class="span3">
+{{ form_row(form.password) }}
+</div>
+{{ form_rest(form) }}
+<input type="submit" class="offset1 btn btn-success" value="Save"/>
+</div>
+</form>
+
