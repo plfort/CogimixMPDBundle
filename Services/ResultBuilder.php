@@ -21,6 +21,7 @@ class ResultBuilder
         $track->setId($key);
         $track->setArtist($item['Artist']);
         $track->setTitle($item['Title']);
+        $track->setDuration($item['Time']);
         $track->setHash($this->filenameHasher->crypt($item['file']));
         $track->setIcon('bundles/cogimixmpd/images/mpd-logo.png');
         $track->setThumbnails('bundles/cogimixmpd/images/mpd-logo.png');

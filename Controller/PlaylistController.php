@@ -40,7 +40,7 @@ class PlaylistController extends AbstractController
           $user= $this->getCurrentUser();
           if($mpdServerInfo->getUser()==$user){
                       //echo $filename;die();
-              $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort());
+              $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
               $data=$mpd->getPlaylistInfo($name);
 
               if(isset($data['files'])){

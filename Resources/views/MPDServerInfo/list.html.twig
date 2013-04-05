@@ -1,6 +1,5 @@
 {% spaceless %}
-<a id="createMPDServerInfoBtn" class="btn btn-success" href="#">Add</a>
-<ul id="mpdServerInfoList">
+<ul id="mpdServerInfoList" class="well">
 {% for mpdServerInfo in mpdServerInfos %}
 {% include 'CogimixMPDBundle:MPDServerInfo:listItem.html.twig' %}
 {% endfor %}

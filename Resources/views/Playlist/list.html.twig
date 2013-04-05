@@ -1,5 +1,10 @@
 {% spaceless %}
-<ul id="mpd-playlist-list">
+<li>
+<a data-toggle="collapse"  href="#mpd-playlist-list">
+<img class="playlist-icon" src="{{ asset('bundles/cogimixmpd/images/mpd-logo.png') }}"/>
+MPD</a>
+</li>
+<ul id="mpd-playlist-list" class="collapse out">
 {% if playlists is not empty %}
     {% for serverName,items in playlists %}
         {% for item in items %}
@@ -7,7 +12,7 @@
         {% endfor %}
     {% endfor %}
 {% else %}
-<li>No Grooveshark playlist</li>
+<li>No MPD playlist</li>
 {% endif %}
 </ul>
 {% endspaceless %}

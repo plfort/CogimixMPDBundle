@@ -29,6 +29,11 @@ class MPDResult extends TrackResult
         $this->pluginProperties['url'] =$url;
     }
 
+    public function setDuration($duration)
+    {
+        $this->pluginProperties['duration'] =$duration;
+    }
+
     public function getEntryId(){
         return $this->getId();
     }

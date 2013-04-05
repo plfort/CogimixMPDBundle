@@ -20,6 +20,7 @@ class MPDMusicSearch extends AbstractMusicSearch
         $return = array();
         if(isset($results['files'])){
             foreach ($results['files'] as $key=>$result) {
+
                 $item = new MPDResult();
                 $item->setEntryId($key);
                 $item->setId($key);
@@ -27,6 +28,7 @@ class MPDMusicSearch extends AbstractMusicSearch
                 $item->setServerAlias($this->mpdServerInfo->getAlias());
                 $item->setArtist($result["Artist"]);
                 $item->setTitle($result["Title"]);
+                $item->setDuration($result['Time']);
                 $item->setThumbnails($this->getDefaultIcon());
                 $item->setTag($this->getResultTag());
                 $item->setIcon($this->getDefaultIcon());

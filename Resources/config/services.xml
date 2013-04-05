@@ -35,6 +35,14 @@
            <service id="cogimix_mpd.modal_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Modal\ModalRenderer">
                 <tag name="cogimix.modal_renderer"/>
            </service>
+           
+           <service id="cogimix_mpd.jsimport_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Javascript\JavascriptImportRenderer">
+                <tag name="cogimix.jsimport_renderer"/>
+           </service>
+           
+           <service id="cogimix_mpd.cssimport_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Css\CssImportRenderer">
+                <tag name="cogimix.cssimport_renderer"/>
+           </service>
     </services>
     
 </container>

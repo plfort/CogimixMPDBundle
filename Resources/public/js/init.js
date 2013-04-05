@@ -36,23 +36,52 @@ $(document).ready(function(){
 		return false;
 		
 	});
+	$modalBody.on('click','.removeMpdServerInfoBtn',function(event){
+		$.get($(this).attr('href'),function(response){
+			if(response.success==true){
+				$modalBody.find("#mpdServerInfoList a[data-id='"+response.data.id+"']").parent().remove();
+				$modalBody.find("#mpdServerInfoForm").empty();
+				$modal.addClass('refreshOnClose');
+			}
+		},'json');
+		
+		return false;
+		
+	});
+	
+	
 	$modalBody.on('submit','form',function(evnet){
 		var formData = $(this).serialize();
+		var currentForm = $(this);
 		$.post($(this).attr('action'),formData,function(response){
+			currentForm.find('.formMessage').empty();
 			if(response.success==true){
-				$modalBody.find('div#mpdServerInfoForm').before('<div class="span3 center alert alert-success">Saved !</div>')
+				$modal.addClass('refreshOnClose');
+				
+				currentForm.find('.formMessage').html('<div class="span3 center alert alert-success">Saved !</div>')
 
 				if(response.data.formType=='create'){
 					$modalBody.find("#mpdServerInfoList").append(response.data.newItem);
 				    
 				}
-				//$("#manageCustomProviderModal").modal('toggle');
+
 			}else{
 				var formContainer=$modalBody.find('div#mpdServerInfoList')
 				formContainer.html(response.data.formHtml);
 			}
 		},'json');
-		console.log('submit form mpd server')
+		loggerMpd.debug('submit form mpd server')
 		return false;
 	});
 });
+
+droppedHookArray['mpd-playlist'] = function(droppedItem,callback){
+	
+	$.get(Routing.generate('_cogimix_mpd_playlist_songs',{'serverAlias':droppedItem.data('serveralias'), 'name':droppedItem.data('id')}),function(response){
+        if(response.success==true){
+            loggerMpd.debug(response.data.tracks);
+            callback(response.data.tracks);
+            }
+        },'json');
+
+}

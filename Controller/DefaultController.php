@@ -84,6 +84,28 @@ class DefaultController extends AbstractController
 
     /**
      * @Secure(roles="ROLE_USER")
+     * @Route("/seekTo/{serverAlias}/{value}",name="_cogimix_mpd_seekTo",options={"expose"=true})
+     * @Template()
+     */
+    public function seekToAction(Request $request,$serverAlias,$value)
+    {
+        $response = new AjaxResult();
+        $em = $this->getDoctrine()->getEntityManager();
+        $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
+        if($mpdServerInfo!==null){
+            $user= $this->getCurrentUser();
+            if($mpdServerInfo->getUser()==$user){
+                $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
+                $mpd->SeekTo(floor($value/1000));
+
+                $response->setSuccess(true);
+            }
+        }
+        return $response->createResponse();
+    }
+
+    /**
+     * @Secure(roles="ROLE_USER")
      * @Route("/paus/{serverAlias}",name="_cogimix_mpd_pause",options={"expose"=true})
      * @Template()
      */
@@ -184,6 +206,26 @@ class DefaultController extends AbstractController
             }
         }
 
+
+        return $response->createResponse();
+    }
+
+    /**
+     *  @Secure(roles="ROLE_USER")
+     *  @Route("/remove/{id}",name="_mpd_remove",options={"expose"=true})
+     */
+    public function removeMPDServerInfoAction(Request $request, $id){
+        $response = new AjaxResult();
+
+        $user = $this->getCurrentUser();
+        $em = $this->getDoctrine()->getEntityManager();
+        $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneById($id);
+        if($mpdServerInfo!==null && $mpdServerInfo->getUser()==$user){
+            $em->remove($mpdServerInfo);
+            $em->flush();
+            $response->setSuccess(true);
+            $response->addData('id', $id);
+        }
 
         return $response->createResponse();
     }
