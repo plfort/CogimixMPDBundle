@@ -66,17 +66,23 @@ function mpdPlayer(musicPlayer) {
 	};
 	this.stop = function(){
 		loggerMpd.debug('call stop soundmanager');	
-		self.currentSoundObject.stop();	
+		if(self.currentSoundObject !=null){
+			self.currentSoundObject.stop();	
+		}
 	}
 	
 	this.pause = function(){
 		loggerMpd.debug('call pause soundmanager');
-		self.currentSoundObject.pause();
+		if(self.currentSoundObject !=null){
+			self.currentSoundObject.pause();
+		}
 		
 	}
 	this.resume = function(){
 		loggerMpd.debug('call resume soundmanager');
-		self.currentSoundObject.resume();
+		if(self.currentSoundObject !=null){
+			self.currentSoundObject.resume();
+		}
 	}
 	
 	this.seekTo = function(serverAlias,value){
@@ -113,7 +119,8 @@ $(document).ready(function(){
 	$.get('bundles/cogimixmpd/js/template/track.html',function(html){
 		tplFiles['trackMpd']=html;
 	},'text');
-	$("#playlist-container").on('click','.showPlaylistMPDBtn',function(event){
+	
+	$cogimix.playlistContainer.on('click','.showPlaylistMPDBtn',function(event){
 		var playlistElement = $(this).closest('.mpd-playlist-item');
 		var playlistName = $(this).html();
 		var playlistAlias = playlistElement.data('alias');
@@ -129,7 +136,7 @@ $(document).ready(function(){
 		return false;
 	});
 	
-	$("#playlist-container").on('click','.playPlaylistMPDBtn',function(event){
+	$cogimix.playlistContainer.on('click','.playPlaylistMPDBtn',function(event){
 		var playlistElement = $(this).closest('.mpd-playlist-item');
 		var playlistName = $(this).html();
 		var playlistAlias = playlistElement.data('alias');
