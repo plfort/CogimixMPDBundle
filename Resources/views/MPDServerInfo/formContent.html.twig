@@ -1,13 +1,22 @@
+{% if action =='edit' %}
 <div class="row">
 <a class="pull-right btn btn-mini btn-danger removeMpdServerInfoBtn" href="{{ path('_mpd_remove',{id:mpdServerInfo.id}) }}" >Remove</a>
 </div>
+{% endif %}
 <form action="{{ actionUrl }}" method="POST">
 <div class="row">
 <div class="formMessage">
 </div>
+{% if action =='edit' %}
 <div class="span3">
 Alias : <b>{{ mpdServerInfo.alias }}</b>
 </div>
+{% endif %}
+{% if action =='create' %}
+<div class="span3">
+{{ form_row(form.alias) }}
+</div>
+{% endif %}
 <div class="span3">
 {{ form_row(form.name) }}
 </div>

@@ -153,7 +153,8 @@ class DefaultController extends AbstractController
         $mpdServerInfo = new MPDServerInfo();
 
         $mpdServerInfo->setUser($user);
-        $response->addData('formType', 'create');
+        $action = 'create';
+        $response->addData('formType', $action);
         $form = $this->createForm(new MPDServerInfoFormType(),$mpdServerInfo);
         if($request->getMethod()==='POST'){
             $form->bind($request);
@@ -164,11 +165,11 @@ class DefaultController extends AbstractController
                 $response->addData('newItem', $this->renderView('CogimixMPDBundle:MPDServerInfo:listItem.html.twig',array('mpdServerInfo'=>$mpdServerInfo)));
             }else{
                 $response->setSuccess(false);
-                $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('actionUrl'=>$actionUrl, 'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
+                $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('action'=>$action, 'actionUrl'=>$actionUrl, 'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
             }
         }else{
             $response->setSuccess(true);
-            $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('actionUrl'=>$actionUrl,'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
+            $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('action'=>$action,'actionUrl'=>$actionUrl,'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
         }
 
 
@@ -187,8 +188,10 @@ class DefaultController extends AbstractController
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneById($id);
         if($mpdServerInfo!==null){
+            $action = 'edit';
             $actionUrl = $this->generateUrl('_mpd_edit',array('id'=>$id));
-            $response->addData('formType', 'edit');
+
+            $response->addData('formType', $action);
             $form = $this->createForm(new MPDServerInfoEditFormType(),$mpdServerInfo);
             if($request->getMethod()==='POST'){
                 $form->bind($request);
@@ -198,11 +201,11 @@ class DefaultController extends AbstractController
                     //return $response->createResponse();
                 }else{
                     $response->setSuccess(false);
-                    $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('actionUrl'=>$actionUrl,'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
+                    $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('action'=>$action,'actionUrl'=>$actionUrl,'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
                 }
             }else{
                 $response->setSuccess(true);
-                $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('actionUrl'=>$actionUrl,'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
+                $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('action'=>$action,'actionUrl'=>$actionUrl,'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
             }
         }
 
