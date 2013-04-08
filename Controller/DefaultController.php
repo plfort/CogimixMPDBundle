@@ -11,7 +11,7 @@ use Cogipix\CogimixMPDBundle\Form\MPDServerInfoFormType;
 
 use Cogipix\CogimixMPDBundle\Entity\MPDServerInfo;
 
-use Cogipix\CogimixCommonBundle\Controller\AbstractController;
+
 
 use Cogipix\CogimixCommonBundle\Utils\AjaxResult;
 
@@ -28,7 +28,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @author plfort - Cogipix
  *
  */
-class DefaultController extends AbstractController
+class DefaultController extends Controller
 {
     /**
      * @Secure(roles="ROLE_USER")
@@ -41,13 +41,10 @@ class DefaultController extends AbstractController
       $em = $this->getDoctrine()->getEntityManager();
       $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
       if($mpdServerInfo!==null){
-          $user= $this->getCurrentUser();
+          $user= $this->getUser();
           if($mpdServerInfo->getUser()==$user){
-              //echo $hash."\n";
 
               $filename= $this->get('cogimix_mpd.filename_hasher')->decrypt(  urldecode($hash));
-
-              //echo $filename;die();
               $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
               $mpd->PLClear();
               $mpd->PLAdd($filename);
@@ -71,7 +68,7 @@ class DefaultController extends AbstractController
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
-            $user= $this->getCurrentUser();
+            $user= $this->getUser();
             if($mpdServerInfo->getUser()==$user){
             $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
             $mpd->Stop();
@@ -93,7 +90,7 @@ class DefaultController extends AbstractController
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
-            $user= $this->getCurrentUser();
+            $user= $this->getUser();
             if($mpdServerInfo->getUser()==$user){
                 $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
                 $mpd->SeekTo(floor($value/1000));
@@ -115,7 +112,7 @@ class DefaultController extends AbstractController
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
-            $user= $this->getCurrentUser();
+            $user= $this->getUser();
                 if($mpdServerInfo->getUser()==$user){
                 $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
                 $mpd->Pause();
@@ -133,7 +130,7 @@ class DefaultController extends AbstractController
      */
     public function getManageModalAction(Request $request){
         $response = new AjaxResult();
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfos=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findByUser($user);
         $response->setSuccess(true);
@@ -148,7 +145,7 @@ class DefaultController extends AbstractController
     public function createMPDServerInfoAction(Request $request){
         $response = new AjaxResult();
         $actionUrl = $this->generateUrl('_mpd_create');
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo = new MPDServerInfo();
 
@@ -184,7 +181,7 @@ class DefaultController extends AbstractController
     public function editMPDServerInfoAction(Request $request,$id){
         $response = new AjaxResult();
 
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneById($id);
         if($mpdServerInfo!==null){
@@ -220,7 +217,7 @@ class DefaultController extends AbstractController
     public function removeMPDServerInfoAction(Request $request, $id){
         $response = new AjaxResult();
 
-        $user = $this->getCurrentUser();
+        $user = $this->getUser();
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneById($id);
         if($mpdServerInfo!==null && $mpdServerInfo->getUser()==$user){

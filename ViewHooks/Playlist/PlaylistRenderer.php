@@ -45,13 +45,18 @@ class PlaylistRenderer implements PlaylistRendererInterface,
                 foreach($mpdServerInfos as $mpdServerInfo){
                     $currentServerAlias = $mpdServerInfo->getAlias();
                     $playlists[$mpdServerInfo->getName()]=array();
+                    try{
                     $mpd = new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
+
                     $currentPlaylists=$mpd->getAvailablePlaylists();
                     if($currentPlaylists){
                         foreach($currentPlaylists as $key=>$name){
                             $pl = new PlaylistMPD($currentServerAlias,$name);
                             $playlists[$mpdServerInfo->getName()][]=$pl;
                         }
+                    }
+                    }catch(\Exception $ex){
+
                     }
                    // $playlists[$mpdServerInfo->getName()]=$currentPlaylists;
                 }

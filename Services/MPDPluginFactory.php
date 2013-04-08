@@ -16,12 +16,12 @@ class MPDPluginFactory{
     }
 
     public function createMPDPlugin(MPDServerInfo $mpdServerInfo){
-
-        $MPDPlugin = new MPDMusicSearch();
+        $resultBuilder = $this->container->get('cogimix_mpd.result_builder');
+        $resultBuilder->setMpdServerInfo($mpdServerInfo);
+        $MPDPlugin = new MPDMusicSearch($resultBuilder);
         $MPDPlugin->setLogger($this->container->get('logger'));
         $MPDPlugin->setMpdServerInfo($mpdServerInfo);
-        $MPDPlugin->setSerializer($this->container->get('jms_serializer'));
-        $MPDPlugin->setFilenameHasher($this->container->get('cogimix_mpd.filename_hasher'));
+
        return $MPDPlugin;
     }
 }

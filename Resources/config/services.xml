@@ -16,8 +16,9 @@
          </service>
          
          <service id="cogimix_mpd.filename_hasher" class="Cogipix\CogimixMPDBundle\Services\FilenameHasher">
-             
+             <argument type="string">%cogimix.mpd.filenamehasher.secret%</argument>
          </service>
+
          
          <service id="cogimix_mpd.result_builder" class="Cogipix\CogimixMPDBundle\Services\ResultBuilder">
              <argument type="service" id="cogimix_mpd.filename_hasher" />

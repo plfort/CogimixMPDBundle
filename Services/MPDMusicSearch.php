@@ -12,27 +12,20 @@ class MPDMusicSearch extends AbstractMusicSearch
 
     private $mpdServerInfo;
     private $mpdClass;
-    private $serializer;
-    private $filenameHasher;
+    private $resultBuilder;
 
+    public function __construct(ResultBuilder $resultBuilder){
+        $this->resultBuilder=$resultBuilder;
+    }
     protected function parseResponse($results)
     {
         $return = array();
         if(isset($results['files'])){
             foreach ($results['files'] as $key=>$result) {
-
-                $item = new MPDResult();
-                $item->setEntryId($key);
-                $item->setId($key);
-                $item->setHash($this->filenameHasher->crypt($result['file']));
-                $item->setServerAlias($this->mpdServerInfo->getAlias());
-                $item->setArtist($result["Artist"]);
-                $item->setTitle($result["Title"]);
-                $item->setDuration($result['Time']);
-                $item->setThumbnails($this->getDefaultIcon());
-                $item->setTag($this->getResultTag());
-                $item->setIcon($this->getDefaultIcon());
-                $return[] = $item;
+                $item =  $this->resultBuilder->parseItem($result,$key);
+                if($item !== null){
+                    $return[] = $item;
+                }
             }
         }
         return $return;
@@ -87,26 +80,6 @@ class MPDMusicSearch extends AbstractMusicSearch
         $this->mpdServerInfo = $mpdServerInfo;
 
 
-    }
-
-    public function getSerializer()
-    {
-        return $this->serializer;
-    }
-
-    public function setSerializer($serializer)
-    {
-        $this->serializer = $serializer;
-    }
-    public function setFilenameHasher($service)
-    {
-        $this->filenameHasher = $service;
-    }
-
-
-    public function play($filename){
-        $this->mpdClass->PLClear();
-        $this->mpdClass->PLAdd($fileName);
     }
 
 }

@@ -7,7 +7,7 @@ namespace Cogipix\CogimixMPDBundle\Controller;
 
 use Cogipix\CogimixMPDBundle\Entity\MPDResult;
 
-use Cogipix\CogimixCommonBundle\Controller\AbstractController;
+
 
 use Cogipix\CogimixCommonBundle\Utils\AjaxResult;
 
@@ -24,7 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
  * @author plfort - Cogipix
  *
  */
-class PlaylistController extends AbstractController
+class PlaylistController extends Controller
 {
     /**
      * @Secure(roles="ROLE_USER")
@@ -37,7 +37,7 @@ class PlaylistController extends AbstractController
       $em = $this->getDoctrine()->getEntityManager();
       $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
       if($mpdServerInfo!==null){
-          $user= $this->getCurrentUser();
+          $user= $this->getUser();
           if($mpdServerInfo->getUser()==$user){
                       //echo $filename;die();
               $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
@@ -73,7 +73,7 @@ class PlaylistController extends AbstractController
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
-            $user= $this->getCurrentUser();
+            $user= $this->getUser();
             if($mpdServerInfo->getUser()==$user){
             $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort());
             $mpd->Stop();
@@ -95,7 +95,7 @@ class PlaylistController extends AbstractController
         $em = $this->getDoctrine()->getEntityManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
-            $user= $this->getCurrentUser();
+            $user= $this->getUser();
                 if($mpdServerInfo->getUser()==$user){
                 $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort());
                 $mpd->Stop();
