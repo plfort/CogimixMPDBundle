@@ -18,7 +18,7 @@ function mpdPlayer(musicPlayer) {
 				  url: response.data.streamUrl,
 				  autoLoad: true,
 				  autoPlay: true,
-				  volume: 50,
+				  volume: self.musicPlayer.volume,
 				  onload: function() {
 					  
 					  self.musicPlayer.enableControls();
@@ -82,6 +82,12 @@ function mpdPlayer(musicPlayer) {
 		loggerMpd.debug('call resume soundmanager');
 		if(self.currentSoundObject !=null){
 			self.currentSoundObject.resume();
+		}
+	}
+	this.setVolume = function(value){
+		loggerMpd.debug('call setvolume soundmanager');
+		if(self.currentSoundObject!=null){
+			self.currentSoundObject.setVolume(value);
 		}
 	}
 	
