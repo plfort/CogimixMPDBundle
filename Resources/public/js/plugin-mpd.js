@@ -1,5 +1,6 @@
 function mpdPlayer(musicPlayer) {
 	this.name = "MPD";
+	this.cancelRequested = false;
 	this.musicPlayer = musicPlayer;
 	this.currentState = null;
 	this.soundmanagerPlayer = soundManager;
@@ -8,6 +9,11 @@ function mpdPlayer(musicPlayer) {
 	this.currentSoundObject=null;
 	var self = this;
 	self.musicPlayer.cursor.progressbar();
+	
+	this.requestCancel=function(){
+		self.cancelRequested=true;
+	};
+	
 	this.play = function(item) {
 		
 		self.currentPosition=0;
