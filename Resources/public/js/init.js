@@ -1,3 +1,7 @@
+$("body").on('musicplayerReady',function(event){
+	event.musicPlayer.addPlugin('mpd',new mpdPlayer(event.musicPlayer));
+});
+
 $(document).ready(function(){
 	var $modal = $("#manageMPDModal");
 	var $modalBody = $("#manageMPDModal .modal-body");
