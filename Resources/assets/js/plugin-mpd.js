@@ -127,18 +127,14 @@ function mpdPlayer(musicPlayer) {
 }
 
 $(document).ready(function(){
-	
-	$.get('bundles/cogimixmpd/js/template/track.html',function(html){
-		tplFiles['trackMpd']=html;
-	},'text');
-	
+
 	$cogimix.playlistContainer.on('click','.showPlaylistMPDBtn',function(event){
 		var playlistElement = $(this).closest('.mpd-playlist-item');
 		var playlistName = $(this).html();
 		var playlistAlias = playlistElement.data('alias');
 		$.get(Routing.generate('_cogimix_mpd_playlist_songs',{'serverAlias':playlistElement.data('serveralias'), 'name':playlistElement.data('id')}),function(response){
 			if(response.success == true){
-				renderResult(response.data.tracks,{tpl:'trackMpd',tabName:playlistName,alias:playlistAlias});
+				renderResult(response.data.tracks,{tpl:'trackNoSortTpl',tabName:playlistName,alias:playlistAlias});
             	$("#wrap").animate({scrollTop:0});
 	
 			}else{
