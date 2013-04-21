@@ -93,7 +93,7 @@ class DefaultController extends Controller
             $user= $this->getUser();
             if($mpdServerInfo->getUser()==$user){
                 $mpd=new mpd($mpdServerInfo->getHost(), $mpdServerInfo->getPort(),$mpdServerInfo->getPassword());
-                $mpd->SeekTo(floor($value/1000));
+                $mpd->SeekTo($value);
 
                 $response->setSuccess(true);
             }

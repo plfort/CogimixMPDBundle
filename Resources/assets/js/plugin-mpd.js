@@ -23,18 +23,18 @@ function mpdPlayer(musicPlayer) {
 				  id: item.pluginProperties.hash,
 				  url: response.data.streamUrl,
 				  autoLoad: true,
+				  multiShot: false,
 				  autoPlay: true,
 				  volume: self.musicPlayer.volume,
-				  onload: function() {
-					  
-					  self.musicPlayer.enableControls();
-					  self.musicPlayer.cursor.slider("option", "max", item.pluginProperties.duration*1000).progressbar();			  
-					 self.createCursorInterval(500);
-					  self.musicPlayer.bindCursorStop(function(value) {
+				  onplay: function(){
+					 self.musicPlayer.enableControls();
+				     self.musicPlayer.cursor.slider("option", "max", item.pluginProperties.duration).progressbar();			  
+					 self.createCursorInterval(1000);
+					 self.musicPlayer.bindCursorStop(function(value) {
+							
 						  self.seekTo(item.pluginProperties.alias,value);
-						  //self.currentSoundObject.setPosition(value);
+						  
 						});
-
 				  },
 				  onpause: function(){
 					  self.clearInterval();
@@ -42,7 +42,7 @@ function mpdPlayer(musicPlayer) {
 						
 				  },
 				  onresume:function(){
-					  self.createCursorInterval(500);
+					  self.createCursorInterval(1000);
 					  $.get(Routing.generate('_cogimix_mpd_pause',{serverAlias:item.pluginProperties.alias}),function(response){});
 						
 				  },
@@ -56,12 +56,6 @@ function mpdPlayer(musicPlayer) {
 					  self.clearInterval();
 					  this.destruct();
 					  self.musicPlayer.next();
-				  },
-				  whileplaying: function(){
-                     // loggerMpd.debug('bytes total :'+this.bytesTotal+' position : '+this.position+' duration: '+this.duration);
-					 // if(self.musicPlayer.cursor.data('isdragging')==false){
-					  //self.musicPlayer.cursor.slider("value", this.position);
-					 // }
 				  },
 				  
 				  
@@ -98,11 +92,10 @@ function mpdPlayer(musicPlayer) {
 	}
 	
 	this.seekTo = function(serverAlias,value){
-		self.currentSoundObject.unload();
-		$.get(Routing.generate('_cogimix_mpd_seekTo',{serverAlias:serverAlias,value:value}),function(response){
-			self.currentSoundObject.load({ autoLoad: true,
-				  autoPlay: true,});
+		//self.currentSoundObject.unload();
 		
+		$.get(Routing.generate('_cogimix_mpd_seekTo',{serverAlias:serverAlias,value:value}),function(response){
+			
 			self.currentPosition=value;
 		},'json');
 	}
@@ -115,7 +108,7 @@ function mpdPlayer(musicPlayer) {
 		self.clearInterval();
 		self.interval = window.setInterval(function() {
 			
-			self.currentPosition+=500;
+			self.currentPosition+=1;
 			loggerMpd.debug('update Interval position : '+self.currentPosition);
 			if(self.musicPlayer.cursor.data('isdragging')==false){
 				self.musicPlayer.cursor.slider("value", self.currentPosition);
