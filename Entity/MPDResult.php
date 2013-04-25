@@ -11,6 +11,8 @@ use JMS\Serializer\Annotation as JMSSerializer;
 class MPDResult extends TrackResult
 {
 
+    protected $shareable=false;
+
     public function __construct(){
         parent::__construct();
         // $this->pluginProperties=array('test'=>array('url'=>'','test'=>'hello'));
