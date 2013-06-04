@@ -82,6 +82,8 @@ class PlaylistRenderer implements PlaylistRendererInterface,
         return null;
     }
 
-
+    public function getTag(){
+        return 'mpd';
+    }
 
 }
