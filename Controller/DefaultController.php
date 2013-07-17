@@ -38,7 +38,7 @@ class DefaultController extends Controller
     public function playAction(Request $request,$serverAlias, $hash)
     {
        $response = new AjaxResult();
-      $em = $this->getDoctrine()->getEntityManager();
+      $em = $this->getDoctrine()->getManager();
       $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
       if($mpdServerInfo!==null){
           $user= $this->getUser();
@@ -65,7 +65,7 @@ class DefaultController extends Controller
     public function stopAction(Request $request,$serverAlias)
     {
         $response = new AjaxResult();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
             $user= $this->getUser();
@@ -87,7 +87,7 @@ class DefaultController extends Controller
     public function seekToAction(Request $request,$serverAlias,$value)
     {
         $response = new AjaxResult();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
             $user= $this->getUser();
@@ -109,7 +109,7 @@ class DefaultController extends Controller
     public function pauseAction(Request $request,$serverAlias)
     {
         $response = new AjaxResult();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
             $user= $this->getUser();
@@ -131,7 +131,7 @@ class DefaultController extends Controller
     public function getManageModalAction(Request $request){
         $response = new AjaxResult();
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfos=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findByUser($user);
         $response->setSuccess(true);
         $response->addData('modalContent', $this->renderView('CogimixMPDBundle:MPDServerInfo:modalContent.html.twig',array('mpdServerInfos'=>$mpdServerInfos)));
@@ -146,7 +146,7 @@ class DefaultController extends Controller
         $response = new AjaxResult();
         $actionUrl = $this->generateUrl('_mpd_create');
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo = new MPDServerInfo();
 
         $mpdServerInfo->setUser($user);
@@ -182,7 +182,7 @@ class DefaultController extends Controller
         $response = new AjaxResult();
 
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneById($id);
         if($mpdServerInfo!==null){
             $action = 'edit';
@@ -218,7 +218,7 @@ class DefaultController extends Controller
         $response = new AjaxResult();
 
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneById($id);
         if($mpdServerInfo!==null && $mpdServerInfo->getUser()==$user){
             $em->remove($mpdServerInfo);

@@ -34,7 +34,7 @@ class PlaylistController extends Controller
     public function getPlaylistSongsAction(Request $request,$serverAlias, $name)
     {
        $response = new AjaxResult();
-      $em = $this->getDoctrine()->getEntityManager();
+      $em = $this->getDoctrine()->getManager();
       $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
       if($mpdServerInfo!==null){
           $user= $this->getUser();
@@ -70,7 +70,7 @@ class PlaylistController extends Controller
     public function stopAction(Request $request,$serverAlias)
     {
         $response = new AjaxResult();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
             $user= $this->getUser();
@@ -92,7 +92,7 @@ class PlaylistController extends Controller
     public function pauseAction(Request $request,$serverAlias)
     {
         $response = new AjaxResult();
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
         $mpdServerInfo=$em->getRepository('CogimixMPDBundle:MPDServerInfo')->findOneByAlias($serverAlias);
         if($mpdServerInfo!==null){
             $user= $this->getUser();
