@@ -21,8 +21,8 @@ class MPDServerInfoFormType extends AbstractType{
         ->add('alias', 'text', array(
                         'label' => 'Unique alias'))
         ->add('streamUrl', 'text', array('label'=>'Stream URL'))
-        ->add('host','text',array('label'=>'host'))
-        ->add('port','text',array('label'=>'port'))
+        ->add('host','text',array('label'=>'Host'))
+        ->add('port','text',array('label'=>'Port'))
         ->add('password','text',array('label'=>'Password','required'=>false));
     }
 
