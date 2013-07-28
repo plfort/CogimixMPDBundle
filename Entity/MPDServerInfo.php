@@ -32,6 +32,8 @@ class MPDServerInfo
     /**
      * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank(message="This value should not be blank",groups={"Create"})
+     * @Assert\Length(min=4, max=20,minMessage="field_too_short", maxMessage="field_too_long", groups={"Create","Edit"})
+     * @Assert\Regex(pattern="/^\w*$/",message="error_alphanum", groups={"Create","Edit"})
      */
     protected $alias;
 
@@ -50,6 +52,7 @@ class MPDServerInfo
     /**
      * @ORM\Column(type="string", nullable=false)
      * @Assert\NotBlank(message="This value should not be blank",groups={"Create"})
+     * @Assert\Url(groups={"Create","Edit"})
      */
     protected $streamUrl;
 
