@@ -48,7 +48,7 @@ class ResultBuilder implements ResultBuilderInterface
     }
     public function getDefaultIcon()
     {
-        return 'bundles/cogimixmpd/images/mpd-logo.png';
+        return '/bundles/cogimixmpd/images/mpd-logo.png';
 
     }
 

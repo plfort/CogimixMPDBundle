@@ -66,7 +66,7 @@ class MPDMusicSearch extends AbstractMusicSearch
 
     public function getDefaultIcon()
     {
-        return 'bundles/cogimixcustomprovider/images/cogimix.png';
+        return '/bundles/cogimixcustomprovider/images/cogimix.png';
     }
 
     public function getMpdServerInfo()
