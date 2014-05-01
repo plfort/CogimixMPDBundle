@@ -70,7 +70,7 @@ $(document).ready(function(){
 				}
 
 			}else{
-				var formContainer=$modalBody.find('div#mpdServerInfoList')
+				var formContainer=$modalBody.find('div#mpdServerInfoForm')
 				formContainer.html(response.data.formHtml);
 			}
 		},'json');

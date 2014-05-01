@@ -154,13 +154,14 @@ class DefaultController extends Controller
         $response->addData('formType', $action);
         $form = $this->createForm(new MPDServerInfoFormType(),$mpdServerInfo);
         if($request->getMethod()==='POST'){
-            $form->bind($request);
+            $form->handleRequest($request);
             if($form->isValid()){
                 $em->persist($mpdServerInfo);
                 $em->flush();
                 $response->setSuccess(true);
                 $response->addData('newItem', $this->renderView('CogimixMPDBundle:MPDServerInfo:listItem.html.twig',array('mpdServerInfo'=>$mpdServerInfo)));
             }else{
+                
                 $response->setSuccess(false);
                 $response->addData('formHtml', $this->renderView('CogimixMPDBundle:MPDServerInfo:formContent.html.twig',array('action'=>$action, 'actionUrl'=>$actionUrl, 'mpdServerInfo'=>$mpdServerInfo,'form'=>$form->createView())));
             }

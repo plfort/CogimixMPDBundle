@@ -21,6 +21,7 @@ class ResultBuilder implements ResultBuilderInterface
         $track->setTag($this->getResultTag());
         $track->setEntryId($key);
         $track->setId($key);
+        $track->setDuration($item['Time']);
         $track->setArtist($item['Artist']);
         $track->setTitle($item['Title']);
         $track->setDuration($item['Time']);

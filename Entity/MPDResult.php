@@ -33,6 +33,7 @@ class MPDResult extends TrackResult
 
     public function setDuration($duration)
     {
+        $this->duration = $duration;
         $this->pluginProperties['duration'] =$duration;
     }
 
