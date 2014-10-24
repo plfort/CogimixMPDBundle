@@ -1,39 +1,61 @@
-{% if action =='edit' %}
 <div class="row">
+<div class="col-sm-12">
+{% if action =='edit' %}
+
 <a class="pull-right btn btn-mini btn-danger removeMpdServerInfoBtn" href="{{ path('_mpd_remove',{id:mpdServerInfo.id}) }}" >Remove</a>
-</div>
+
 {% endif %}
-<form action="{{ actionUrl }}" method="POST">
-<div class="row">
+<form class="form-horizontal" action="{{ actionUrl }}" method="POST">
+
 <div class="formMessage">
+{{ form_errors(form) }}
 </div>
 {% if action =='edit' %}
-<div class="span3">
+<div class="col-sm-8">
 Alias : <b>{{ mpdServerInfo.alias }}</b>
 </div>
 {% endif %}
 {% if action =='create' %}
-<div class="span3">
-{{ form_row(form.alias) }}
+<div class="form-group">
+{{ form_label(form.alias,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.alias,{'attr':{'class':' form-control'} }) }}
+</div>
 </div>
 {% endif %}
-<div class="span3">
-{{ form_row(form.name) }}
+<div class="form-group">
+{{ form_label(form.name,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.name,{'attr':{'class':' form-control'} }) }}
 </div>
-<div class="span3">
-{{ form_row(form.host) }}
 </div>
-<div class="span3">
-{{ form_row(form.port) }}
+<div class="form-group">
+{{ form_label(form.host,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.host,{'attr':{'class':' form-control'} }) }}
 </div>
-<div class="span3">
-{{ form_row(form.streamUrl) }}
 </div>
-<div class="span3">
-{{ form_row(form.password) }}
+<div class="form-group">
+{{ form_label(form.port,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.port,{'attr':{'class':' form-control'} }) }}
+</div>
+</div>
+<div class="form-group">
+{{ form_label(form.streamUrl,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.streamUrl,{'attr':{'class':' form-control'} }) }}
+</div>
+</div>
+<div class="form-group">
+{{ form_label(form.password,null,{'label_attr':{'class':'col-sm-3'} }) }}
+<div class="col-sm-8">
+{{ form_widget(form.password,{'attr':{'class':' form-control'} }) }}
+</div>
 </div>
 {{ form_rest(form) }}
-<input type="submit" class="offset1 btn btn-success" value="Save"/>
-</div>
-</form>
+<input type="submit" class="btn btn-success" value="Save"/>
 
+</form>
+</div>
+</div>
