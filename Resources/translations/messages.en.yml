@@ -1,0 +1,7 @@
+cogimix.mpd.manage_label: Manage MPD servers
+cogimix.mpd.display_name: Display name
+cogimix.mpd.alias: Unique alias
+cogimix.mpd.stream_url: Stream URL
+cogimix.mpd.host: Host or IP
+cogimix.mpd.port: Port
+cogimix.mpd.password: Password

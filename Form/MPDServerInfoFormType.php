@@ -17,13 +17,13 @@ class MPDServerInfoFormType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
         ->add('name', 'text', array(
-                'label' => 'Display name'))
+                'label' => 'cogimix.mpd.display_name'))
         ->add('alias', 'text', array(
-                        'label' => 'Unique alias'))
-        ->add('streamUrl', 'text', array('label'=>'Stream URL'))
-        ->add('host','text',array('label'=>'Host'))
-        ->add('port','text',array('label'=>'Port'))
-        ->add('password','text',array('label'=>'Password','required'=>false));
+                        'label' => 'cogimix.mpd.alias'))
+        ->add('streamUrl', 'text', array('label'=>'cogimix.mpd.stream_url'))
+        ->add('host','text',array('label'=>'cogimix.mpd.host'))
+        ->add('port','text',array('label'=>'cogimix.mpd.port'))
+        ->add('password','text',array('label'=>'cogimix.mpd.password','required'=>false));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)

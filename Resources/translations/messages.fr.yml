@@ -1,0 +1,7 @@
+cogimix.mpd.manage_label: Gérer vos serveurs MPD
+cogimix.mpd.display_name: Nom (pour l'affichage)
+cogimix.mpd.alias: Alias unique
+cogimix.mpd.stream_url: Url de diffusion
+cogimix.mpd.host: Nom d'hôte (ou IP)
+cogimix.mpd.port: Port
+cogimix.mpd.password: Mot de passe
