@@ -7,11 +7,16 @@ function mpdPlayer(musicPlayer) {
     this.intervale = null;
     this.currentPosition=0;
 	this.currentSoundObject=null;
+	this.bindCursor = true;
 	var self = this;
 	self.musicPlayer.cursor.progressbar();
 	
 	this.requestCancel=function(){
 		self.cancelRequested=true;
+	};
+	
+	this.onCursorStop = function(value){
+		 self.seekTo(item.pluginProperties.alias,value);
 	};
 	
 	this.play = function(item) {
@@ -30,11 +35,6 @@ function mpdPlayer(musicPlayer) {
 					 self.musicPlayer.enableControls();
 				     self.musicPlayer.cursor.slider("option", "max", item.pluginProperties.duration).progressbar();			  
 					 self.createCursorInterval(1000);
-					 self.musicPlayer.bindCursorStop(function(value) {
-							
-						  self.seekTo(item.pluginProperties.alias,value);
-						  
-						});
 				  },
 				  onpause: function(){
 					  self.clearInterval();
@@ -56,6 +56,7 @@ function mpdPlayer(musicPlayer) {
 					  self.clearInterval();
 					  this.destruct();
 					  self.musicPlayer.next();
+					  self.musicPlayer.crossFadeActive = false;
 				  },
 				  
 				  
@@ -110,7 +111,7 @@ function mpdPlayer(musicPlayer) {
 			
 			self.currentPosition+=1;
 			loggerMpd.debug('update Interval position : '+self.currentPosition);
-			if(self.musicPlayer.cursor.data('isdragging')==false){
+			if(self.musicPlayer.cursor.data('isdragging')==false && self.bindCursor == true){
 				self.musicPlayer.cursor.slider("value", self.currentPosition);
 			}
 		}, delay);
