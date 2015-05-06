@@ -1,22 +1,19 @@
 <?php
 namespace Cogipix\CogimixMPDBundle\Entity;
 
-use Cogipix\CogimixCommonBundle\Entity\TrackResult;
+use Cogipix\CogimixCommonBundle\Entity\Song;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMSSerializer;
 /**
   * @JMSSerializer\AccessType("public_method")
+ * @ORM\MappedSuperclass()
  * @author plfort - Cogipix
  */
-class MPDResult extends TrackResult
+class MPDResult extends Song
 {
 
     protected $shareable=false;
 
-    public function __construct(){
-        parent::__construct();
-        // $this->pluginProperties=array('test'=>array('url'=>'','test'=>'hello'));
-    }
 
     public function setHash($hash){
         $this->pluginProperties['hash'] =$hash;

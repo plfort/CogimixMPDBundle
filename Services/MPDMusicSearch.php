@@ -4,7 +4,6 @@ use Cogipix\CogimixMPDBundle\Entity\MPDResult;
 
 use Cogipix\CogimixMPDBundle\lib\mpd;
 
-use Cogipix\CogimixCommonBundle\Entity\TrackResult;
 use Cogipix\CogimixCommonBundle\MusicSearch\AbstractMusicSearch;
 
 class MPDMusicSearch extends AbstractMusicSearch
