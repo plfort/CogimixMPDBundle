@@ -7,7 +7,7 @@
     <services>
        <service id="cogimix.mpd.plugin_provider" class="Cogipix\CogimixMPDBundle\Services\MPDPluginProvider">
             <argument type="service" id="doctrine.orm.entity_manager" />
-            <argument type="service" id="security.context" />
+            <argument type="service" id="security.token_storage" />
             <argument type="service" id="cogimix.mpd_plugin_factory" />
             <tag name="cogimix.plugin_provider"/>
         </service>
@@ -27,7 +27,7 @@
          	<service id="cogimix_mpd.playlist_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Playlist\PlaylistRenderer">
                 <argument type="service" id="doctrine.orm.entity_manager" />
                 <tag name="cogimix.playlist_renderer"/>
-                <tag name="securitycontext_aware"/>
+                <tag name="tokenstorage_aware"/>
            </service>
            
 		   <service id="cogimix_mpd.menu_renderer" class="Cogipix\CogimixMPDBundle\ViewHooks\Menu\MenuItem">

@@ -2,13 +2,13 @@
 namespace Cogipix\CogimixMPDBundle\ViewHooks\Playlist;
 use Cogipix\CogimixMPDBundle\Model\PlaylistMPD;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 use Cogipix\CogimixMPDBundle\lib\mpd;
 
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-use Cogipix\CogimixCommonBundle\Utils\SecurityContextAwareInterface;
+use Cogipix\CogimixCommonBundle\Utils\TokenStorageAwareInterface;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -19,10 +19,17 @@ use Cogipix\CogimixCommonBundle\ViewHooks\Playlist\PlaylistRendererInterface;
  *
  */
 class PlaylistRenderer implements PlaylistRendererInterface,
-        SecurityContextAwareInterface
+        TokenStorageAwareInterface
 {
 
-    private $securityContext;
+    /**
+     * @var TokenStorageInterface
+     */
+    private $tokenStorage;
+
+    /**
+     * @var ObjectManager
+     */
     private $om;
 
     public function __construct(ObjectManager $om)
@@ -66,15 +73,15 @@ class PlaylistRenderer implements PlaylistRendererInterface,
 
         return $playlists;
     }
-    public function setSecurityContext(
-            SecurityContextInterface $securityContext)
+    public function setTokenStorage(
+            TokenStorageInterface $tokenStorage)
     {
         // TODO: Auto-generated method stub
-        $this->securityContext=$securityContext;
+        $this->tokenStorage=$tokenStorage;
     }
 
     protected function getCurrentUser() {
-        $user = $this->securityContext->getToken()->getUser();
+        $user = $this->tokenStorage->getToken()->getUser();
         if ($user instanceof AdvancedUserInterface){
             return $user;
         }

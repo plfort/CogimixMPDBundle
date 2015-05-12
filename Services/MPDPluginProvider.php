@@ -6,20 +6,20 @@ use Cogipix\CogimixCommonBundle\Plugin\PluginProviderInterface;
 
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class MPDPluginProvider implements PluginProviderInterface{
 
     private $om;
-    private $securityContext;
+    private $torkenStorage;
     protected $plugins = array();
     protected $pluginProviders;
 
     private $pluginFactory;
 
-    public function __construct(ObjectManager $om,SecurityContextInterface $securityContext,MPDPluginFactory $factory){
+    public function __construct(ObjectManager $om,TokenStorageInterface $tokenStorageInterface,MPDPluginFactory $factory){
         $this->om=$om;
-        $this->securityContext=$securityContext;
+        $this->torkenStorage=$tokenStorageInterface;
         $this->pluginFactory=$factory;
 
     }
@@ -51,7 +51,7 @@ class MPDPluginProvider implements PluginProviderInterface{
 
 
     protected function getCurrentUser() {
-        $token = $this->securityContext->getToken();
+        $token = $this->torkenStorage->getToken();
         if($token != null){
             $user = $token->getUser();
             if ($user instanceof \FOS\UserBundle\Model\UserInterface){
