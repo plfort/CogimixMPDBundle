@@ -11,6 +11,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  * @author plfort - Cogipix
  * @ORM\Entity
+ * @ORM\Table(name="mpdserverinfo")
  * @UniqueEntity(fields="alias",message="Alias already used",groups={"Create"})
  */
 class MPDServerInfo
@@ -19,7 +20,7 @@ class MPDServerInfo
     /**
      * @ORM\Column(name="id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
 
