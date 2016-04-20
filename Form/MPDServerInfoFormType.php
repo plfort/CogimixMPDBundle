@@ -2,6 +2,7 @@
 namespace Cogipix\CogimixMPDBundle\Form;
 use Symfony\Component\Form\FormInterface;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Symfony\Component\Form\FormBuilderInterface;
@@ -26,16 +27,17 @@ class MPDServerInfoFormType extends AbstractType{
         ->add('password','text',array('label'=>'cogimix.mpd.password','required'=>false));
     }
 
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array('data_class' => 'Cogipix\CogimixMPDBundle\Entity\MPDServerInfo',
-                'validation_groups' => function(FormInterface $form) {
-                                $default = array('Create');
+            'validation_groups' => function(FormInterface $form) {
+                $default = array('Create');
 
-                                return $default;
-                            },
+                return $default;
+            },
         ));
     }
+
 
     public function getName() {
         return 'mpd_server_info_create_form';
